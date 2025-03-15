@@ -292,7 +292,7 @@ const StudentAdmissionForm = () => {
                     })}
                     placeholder="student code"
                     className="focus:outline-none overflow-hidden text-ellipsis w-full"
-                    disabled
+                    // disabled
                   />
                 </div>
                 {errors.studentCode && (

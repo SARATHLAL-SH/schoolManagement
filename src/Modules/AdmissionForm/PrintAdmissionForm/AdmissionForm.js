@@ -259,8 +259,8 @@ const AdmissionForm = () => {
       </div>
 
       {/* Display Section */}
-      {filteredStudents.length > 0 ? (
-        filteredStudents.map((student, index) => (
+      {filteredStudents?.length > 0 ? (
+        filteredStudents?.map((student, index) => (
           <div
             key={student.id}
             ref={(el) => (printableRef.current[index] = el)}

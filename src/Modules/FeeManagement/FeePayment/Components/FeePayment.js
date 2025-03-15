@@ -241,12 +241,12 @@ const FeePayment = () => {
               <TbCashRegister />
             </label>
           </button>
-          <button
+          {/* <button
             className="bg-green-600 text-white p-1 rounded flex flex-row items-center"
             onClick={() => advancePaymentHandler(row.original)}
           >
             Advance Payment
-          </button>
+          </button> */}
         </div>
       ),
     },

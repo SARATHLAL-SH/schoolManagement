@@ -6,6 +6,7 @@ import { changeParentPassword } from "../ManageAccounts/service";
 import { useDispatch } from "react-redux";
 
 const PasswordResetModal = ({ onClose, row }) => {
+ 
   const dispatch = useDispatch();
   const {
     register,
@@ -16,10 +17,10 @@ const PasswordResetModal = ({ onClose, row }) => {
 
   const onSubmit = (data) => {
     const { confirmPassword } = data;
-    console.log("row data", row);
+    console.log("row data", row.email);
     dispatch(
       changeParentPassword({
-        email: row.fatherEmail,
+        email: row.email,
         newPassword: confirmPassword,
       })
     );

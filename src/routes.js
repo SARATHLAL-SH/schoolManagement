@@ -287,16 +287,7 @@ const route = [
     path: "/accountants",
     role: ["user"],
   },
-  {
-    name: "Public Messages",
-    path: "/publicMessages",
-    role: ["admin"],
-  },
-  {
-    name: "Classes",
-    path: "/classes",
-    role: ["admin"],
-  },
+ 
 ];
 
 export default route;

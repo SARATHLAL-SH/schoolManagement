@@ -20,8 +20,8 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-blue-900 dark:bg-white flex flex-col fixed left-0 top-0 fixed min-h-screen w-[250px] z-10 overflow-y-auto hide-scrollbar ">
-      <div className="flex  flex-col bg-blue-950 dark:bg-white  overflow-y-auto h-[750px] mb-15 shadow-lg rounded-md   hide-scrollbar mx-2 mt-12 pt-4">
+    <div className="bg-blue-900 dark:bg-white flex flex-col fixed left-0 top-0 min-h-screen w-[250px] z-10 overflow-y-auto hide-scrollbar">
+      <div className="flex flex-col bg-blue-950 dark:bg-white overflow-y-auto h-[calc(100vh-100px)] shadow-lg rounded-md hide-scrollbar mx-2 mt-12 pt-4">
         {filteredRoutes.map((route) => (
           <NavLink
             key={route.path}

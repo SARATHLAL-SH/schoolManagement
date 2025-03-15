@@ -7,39 +7,40 @@ import TopNavbar from "../Navbar/TopNavbar";
 
 export default function Layout() {
   const userRole = localStorage.getItem("role");
+
   const getRoutes = (routes) => {
-  return routes.flatMap((route, key) => {
-    if (route.subRoutes) {
-      return route.subRoutes
-        .filter((subRoute) => !subRoute.role || subRoute.role.includes(userRole))
-        .map((subRoute, subKey) => (
+    return routes.flatMap((route, key) => {
+      if (route.subRoutes) {
+        return route.subRoutes
+          .filter((subRoute) => !subRoute.role || subRoute.role.includes(userRole))
+          .map((subRoute, subKey) => (
+            <Route
+              path={subRoute.path}
+              element={
+                <ProtectedRoute requiredRole={subRoute.role}>
+                  {subRoute.component}
+                </ProtectedRoute>
+              }
+              key={`${key}-${subKey}`}
+            />
+          ));
+      }
+
+      return (
+        (!route.role || route.role.includes(userRole)) && (
           <Route
-            path={subRoute.path}
+            path={route.path}
             element={
-              <ProtectedRoute requiredRole={subRoute.role}>
-                {subRoute.component}
+              <ProtectedRoute requiredRole={route.role}>
+                {route.component}
               </ProtectedRoute>
             }
-            key={`${key}-${subKey}`}
+            key={key}
           />
-        ));
-    }
-
-    return (
-      (!route.role || route.role.includes(userRole)) && (
-        <Route
-          path={route.path}
-          element={
-            <ProtectedRoute requiredRole={route.role}>
-              {route.component}
-            </ProtectedRoute>
-          }
-          key={key}
-        />
-      )
-    );
-  });
-};
+        )
+      );
+    });
+  };
 
   return (
     <div className="flex flex-col">
@@ -57,7 +58,7 @@ export default function Layout() {
           </div>
 
           {/* Main content */}
-          <div className="mt-[40px] w-full p-4">
+          <div className="mt-[40px] w-full p-4 overflow-y-auto" style={{ height: "calc(100vh - 40px)" }}>
             <Routes>
               {getRoutes(routes)}
 
