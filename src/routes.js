@@ -29,6 +29,7 @@ import StudentAttendance from "./Modules/ManageAttendance/StudentsAttendance/Com
 import AttendanceReport from "./Modules/Reports/AttendanceReport/Components/StudentAttendaceReport";
 import EmployeeAttendanceReport from "./Modules/Reports/AttendanceReport/Components/EmployeeAttendanceReport";
 import EmployeeSalaryRecord from "./Modules/Reports/AttendanceReport/Components/EmployeeSalaryRecord";
+import CourseList from "./Modules/CourseManagement/helpers/CourseList";
 
 const route = [
   {
@@ -64,14 +65,14 @@ const route = [
     ],
   },
   {
-    name: "Admission Enquiries",
-    path: "/admissionEnquiries",
+    name: "Course Management",
+    path: "/courseManagement",
     role: ["admin"],
     subRoutes: [
       {
-        name: "Manage Enquiries",
-        path: "/ManageEnquiries",
-        component: <AdmissionInquiries />,
+        name: "Manage Course",
+        path: "/ManageCourse",
+        component: <CourseList />,
         role: ["admin", "teacher"],
       },
     ],

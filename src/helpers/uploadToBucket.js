@@ -27,6 +27,12 @@ export const handleImageChange = async (e, setImageURL, selectedImage) => {
       "image/tiff",
       "image/bmp",
       "image/svg+xml",
+      "application/pdf", // PDF support
+      "application/msword", // DOC
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // DOCX
+      "application/vnd.ms-excel", // XLS
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // XLSX
+      "text/plain", // TXT
     ];
   
     if (!validImageTypes.includes(file.type)) {
@@ -65,43 +71,3 @@ export const handleImageChange = async (e, setImageURL, selectedImage) => {
         }
     }
   
-  //     regeneratePresignedUrl(result.Key, setImageURL);
-  
-  //     const intervalId = setInterval(() => {
-  //       regeneratePresignedUrl(result.Key, setImageURL);
-  //     }, 5 * 24 * 60 * 60 * 1000); // 5 days in milliseconds
-  
-     
-  //     return () => clearInterval(intervalId);
-  //   } catch (error) {
-  //     console.error("Error uploading file:", error);
-  //     toast.error("Failed to upload image. Please try again.");
-  //     throw error;
-  //   }
-  // };
-  
-  // const regeneratePresignedUrl = async (key, setImageURL) => {
-  //   try {
-  //     const s3 = new AWS.S3({
-  //       accessKeyId,
-  //       secretAccessKey,
-  //       region,
-  //     });
-  
-  //     const params = {
-  //       Bucket: bucketName,
-  //       Key: key,
-  //       Expires: 60 * 60 * 24 * 7, // 7 days
-  //     };
-  
-  //     const url = await s3.getSignedUrlPromise("getObject", params);
-  //     console.log("Generated Pre-signed URL:", url);
-  //     setImageURL(url);
-  //     console.log("url", url);
-  //     return url;
-  //   } catch (error) {
-  //     console.error("Error generating pre-signed URL:", error);
-  //     toast.error("Failed to retrieve image URL.");
-  //     throw error;
-  //   }
-  // };

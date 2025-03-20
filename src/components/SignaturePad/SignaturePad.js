@@ -1,73 +1,71 @@
 import React, { useRef, useState } from "react";
 
-const SignaturePad = () => {
+const SignaturePad = ({ onSave, setSignature }) => {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
 
-  // Start drawing
   const startDrawing = (e) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-
-    // Get the coordinates of the mouse or touch event
     const { offsetX, offsetY } = getCoordinates(e);
-
     ctx.beginPath();
     ctx.moveTo(offsetX, offsetY);
     setIsDrawing(true);
   };
 
-  // Draw on mouse or touch move
   const draw = (e) => {
     if (!isDrawing) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-
-    // Get the coordinates of the mouse or touch event
     const { offsetX, offsetY } = getCoordinates(e);
-
     ctx.lineTo(offsetX, offsetY);
     ctx.stroke();
   };
 
-  // Stop drawing
   const stopDrawing = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-
-    ctx.closePath();
+    canvas.getContext("2d").closePath();
     setIsDrawing(false);
   };
 
-  // Clear the canvas
   const clearCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setSignature(null);
+    
   };
 
-  // Save the signature as an image
   const saveSignature = () => {
     const canvas = canvasRef.current;
-    const image = canvas.toDataURL("image/png"); // Convert canvas to image URL
-    console.log(image); // You can save this URL to your backend or state
+
+    // Convert canvas to Blob
+    canvas.toBlob((blob) => {
+      if (blob) {
+        // Convert Blob to File
+        const signatureFile = new File([blob], "signature.png", {
+          type: "image/png",
+        });
+
+        // Send the File object to the parent component
+        if (onSave) {
+          onSave(signatureFile);
+        }
+      }
+    }, "image/png");
   };
 
-  // Helper function to get coordinates for both mouse and touch events
   const getCoordinates = (e) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
 
     if (e.touches) {
-      // For touch events
       return {
         offsetX: e.touches[0].clientX - rect.left,
         offsetY: e.touches[0].clientY - rect.top,
       };
     } else {
-      // For mouse events
       return {
         offsetX: e.nativeEvent.offsetX,
         offsetY: e.nativeEvent.offsetY,
@@ -76,7 +74,7 @@ const SignaturePad = () => {
   };
 
   return (
-    <div>
+    <div className="p-2">
       <canvas
         ref={canvasRef}
         width={500}
@@ -90,9 +88,22 @@ const SignaturePad = () => {
         onTouchMove={draw}
         onTouchEnd={stopDrawing}
       />
-      <br />
-      <button onClick={clearCanvas}>Clear</button>
-      <button onClick={saveSignature}>Save </button>
+      <div className="mt-2">
+        <button
+          type="button"
+          onClick={clearCanvas}
+          className="bg-red-500 text-white p-2 rounded mr-2"
+        >
+          Clear
+        </button>
+        <button
+          type="button"
+          onClick={saveSignature}
+          className="bg-green-500 text-white p-2 rounded"
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 };
